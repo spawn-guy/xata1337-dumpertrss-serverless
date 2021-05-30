@@ -3,6 +3,7 @@ import os
 from email.utils import formatdate
 
 import requests
+from dateutil.parser import parse
 from feedgen.feed import FeedGenerator
 
 DUMPERT_HOST = os.getenv("DUMPERT_HOST")
@@ -87,6 +88,9 @@ def main(event, context):
     fg.language("nl")
 
     date_updated = datetime.datetime.utcfromtimestamp(d_data["gentime"])
+    if date_updated.utcoffset() is None:
+        date_updated = date_updated.replace(tzinfo=datetime.timezone.utc)
+        
     fg.updated(date_updated)
 
     # fg.author(name="John Doe", email="jdoe@example.com")
@@ -107,8 +111,11 @@ def main(event, context):
         fe.description(description)
 
         # fe.category()
+        item_date_published = parse(item["date"])
+        if item_date_published.utcoffset() is None:
+            item_date_published = item_date_published.replace(tzinfo=datetime.timezone.utc)
 
-        fe.published(item["date"])
+        fe.published(item_date_published)
 
         web_url = f"{DUMPERT_HOST}/item/{item['id']}"
         # fe.id(web_url)

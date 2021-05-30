@@ -1,4 +1,6 @@
+import datetime
 import os
+from email.utils import formatdate
 
 import requests
 from feedgen.feed import FeedGenerator
@@ -65,6 +67,15 @@ def compose_description_image(item):
 
 
 def main(event, context):
+    # load json from API: https://github.com/Reaguurders/API-Spec
+    d_response = requests.get(url=f"{DUMPERT_API_ROOT}{FEED_TYPE}")
+
+    d_data = d_response.json()
+
+    if not d_data["items"]:
+        exit(1)
+
+    # prepare generator
     fg = FeedGenerator()
 
     # fg.id("http://lernfunk.de/media/654321")
@@ -75,16 +86,11 @@ def main(event, context):
     # fg.link(href="https://spawn-guy.name", rel="alternate")
     fg.language("nl")
 
+    date_updated = datetime.datetime.utcfromtimestamp(d_data["gentime"])
+    fg.updated(date_updated)
+
     # fg.author(name="John Doe", email="jdoe@example.com")
     # fg.contributor( name="John Doe", email="jdoe@example.com" )
-
-    # load json from API: https://github.com/Reaguurders/API-Spec
-    d_response = requests.get(url=f"{DUMPERT_API_ROOT}{FEED_TYPE}")
-
-    d_data = d_response.json()
-
-    if not d_data["items"]:
-        exit(1)
 
     for item in d_data["items"]:
         fe = fg.add_entry()
@@ -94,14 +100,15 @@ def main(event, context):
         else:
             fe.title(item["title"])
 
-        if item["media_type"] == "VIDEO":
-            description = compose_description_video(item)
-        else:
-            description = compose_description_image(item)
+        description = compose_description_video(item) \
+            if item["media_type"] == "VIDEO" \
+            else compose_description_image(item)
 
         fe.description(description)
 
         # fe.category()
+
+        fe.published(item["date"])
 
         web_url = f"{DUMPERT_HOST}/item/{item['id']}"
         # fe.id(web_url)
@@ -126,7 +133,11 @@ def main(event, context):
         "statusCode": 200,
         "headers": {
             "Content-Type": content_type,
-            # "Last-Modified": ""  # TODO:
+            "Last-Modified": formatdate(
+                timeval=d_data["gentime"],
+                localtime=False,
+                usegmt=True
+            )
         },
         "body": feed_encoded
     }

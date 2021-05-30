@@ -117,7 +117,8 @@ def main(event, context):
     else:
         content_type = "application/rss+xml"
         # Get the RSS feed as string
-        feed_str = fg.rss_str(pretty=True, encoding="unicode")
+        feed_str = fg.rss_str(pretty=True)
+        # feed_str = fg.rss_str(pretty=True, encoding="unicode")
 
     return {
         "statusCode": 200,
@@ -125,7 +126,9 @@ def main(event, context):
             "Content-Type": content_type,
             # "Last-Modified": ""  # TODO:
         },
-        "body": json.dumps(feed_str)
+        # "body": json.dumps(feed_str),
+        "body": feed_str,
+        # "isBase64Encoded": True
     }
 
 

@@ -1,4 +1,3 @@
-import json
 import os
 
 import requests
@@ -85,7 +84,6 @@ def main(event, context):
     d_data = d_response.json()
 
     if not d_data["items"]:
-        # TODO: error response
         exit(1)
 
     for item in d_data["items"]:
@@ -112,13 +110,14 @@ def main(event, context):
 
     if OUTPUT_TYPE == "atom":
         content_type = "application/atom+xml"
-        # Get the ATOM feed as string
-        feed_str = fg.atom_str(pretty=True, encoding="unicode")
+        # Get the ATOM feed as string.
+        # py38: returns Bytes, unless encoding="unicode"
+        feed_encoded = fg.atom_str(pretty=True)
     else:
         content_type = "application/rss+xml"
         # Get the RSS feed as string
-        feed_str = fg.rss_str(pretty=True)
-        # feed_str = fg.rss_str(pretty=True, encoding="unicode")
+        # py38: returns Bytes, unless encoding="unicode"
+        feed_encoded = fg.rss_str(pretty=True)
 
     return {
         "statusCode": 200,
@@ -126,9 +125,7 @@ def main(event, context):
             "Content-Type": content_type,
             # "Last-Modified": ""  # TODO:
         },
-        # "body": json.dumps(feed_str),
-        "body": feed_str,
-        # "isBase64Encoded": True
+        "body": feed_encoded
     }
 
 

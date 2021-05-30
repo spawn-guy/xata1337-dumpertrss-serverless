@@ -12,14 +12,6 @@ Deployed as `AWS API Gateway` + `AWS Lambda` with help of https://serverless.com
 
 All Rights are Lefts
 
-# Simple HTTP Endpoint Example
-
-This example demonstrates how to setup a simple HTTP GET endpoint. Once you ping it, it will reply with the current time. While the internal function is name `currentTime` the HTTP endpoint is exposed as `ping`.
-
-## Use Cases
-
-- Wrapping an existing internal or external endpoint/service
-
 ## Deploy
 
 In order to deploy the you endpoint simply run

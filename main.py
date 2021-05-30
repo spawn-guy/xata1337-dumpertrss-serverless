@@ -79,7 +79,7 @@ def main(event, context):
     # fg.author(name="John Doe", email="jdoe@example.com")
     # fg.contributor( name="John Doe", email="jdoe@example.com" )
 
-    # load json from API
+    # load json from API: https://github.com/Reaguurders/API-Spec
     d_response = requests.get(url=f"{DUMPERT_API_ROOT}{FEED_TYPE}")
 
     d_data = d_response.json()

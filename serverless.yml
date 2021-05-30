@@ -37,15 +37,17 @@ functions:
   latest:
     handler: src.main.main
     description: Get latest entries. page0 # optional, Description to publish to AWS
-#    role: arn:aws:iam::042234032362:role/iam-role-DataLake
-#    memorySize: 4096 # optional, in MB, default is 1024
+    #    role: arn:aws:iam::042234032362:role/iam-role-DataLake
+    memorySize: 16 # optional, in MB, default is 1024
     timeout: 30 # optional, in seconds, default is 6
     events:
       - http:
-          path: latest
+          path: latest/rss.xml
           method: get
     environment:
       DUMPERT_HOST: ${env:DUMPERT_HOST}
+      DUMPERT_API_ROOT: ${env:DUMPERT_API_ROOT}
+      OUTPUT_TYPE: "rss"
       FEED_TYPE: "latest/0"
 #      FEED_TYPE: "top5/day"
 
@@ -57,7 +59,7 @@ custom:
   pythonRequirements:
     usePipenv: true
     dockerizePip: non-linux
-#    layer: true
+    #    layer: true
     slim: true
 
 package:

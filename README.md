@@ -14,7 +14,7 @@ All Rights are Lefts
 
 ## Deploy
 
-In order to deploy the you endpoint simply run
+In order to deploy the endpoint you simply run
 
 ```bash
 npx serverless deploy --stage=stage_name --aws-profile=profile_name

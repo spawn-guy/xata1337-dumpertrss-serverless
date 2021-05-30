@@ -1,0 +1,13 @@
+{
+  "name": "xata1337-dumpertrss-serverless",
+  "description": "dumpert.nl RSS Enhanced Feed",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless": "^2.37.0",
+    "serverless-python-requirements": "^5.1.1"
+  },
+  "repository": "git@github.com:spawn-guy/xata1337-dumpertrss-serverless.git",
+  "author": "SpAwN_gUy <WAREZMasta@gmail.com>",
+  "private": true
+}

@@ -115,12 +115,12 @@ def main(event, context):
         content_type = "application/atom+xml"
         # Get the ATOM feed as string.
         # py38: returns Bytes, unless encoding="unicode"
-        feed_encoded = fg.atom_str(pretty=True)
+        feed_encoded = fg.atom_str()
     else:
         content_type = "application/rss+xml"
         # Get the RSS feed as string
         # py38: returns Bytes, unless encoding="unicode"
-        feed_encoded = fg.rss_str(pretty=True)
+        feed_encoded = fg.rss_str()
 
     return {
         "statusCode": 200,

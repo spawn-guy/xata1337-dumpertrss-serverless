@@ -12,6 +12,11 @@ Deployed as `AWS API Gateway` + `AWS Lambda` with help of https://serverless.com
 
 All Rights are Lefts
 
+Kudos to 
+ - https://feedly.com for being the new Google Reader
+ - `Palabre RSS Reader` and http://nextmatters.com (for Windows Support)
+ - http://9gagrss.com for the idea and provided convenience
+
 ## Deploy
 
 In order to deploy the endpoint you simply run

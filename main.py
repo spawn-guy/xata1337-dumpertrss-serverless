@@ -113,11 +113,11 @@ def main(event, context):
     if OUTPUT_TYPE == "atom":
         content_type = "application/atom+xml"
         # Get the ATOM feed as string
-        feed_str = fg.atom_str(pretty=True)
+        feed_str = fg.atom_str(pretty=True, encoding="unicode")
     else:
         content_type = "application/rss+xml"
         # Get the RSS feed as string
-        feed_str = fg.rss_str(pretty=True)
+        feed_str = fg.rss_str(pretty=True, encoding="unicode")
 
     return {
         "statusCode": 200,

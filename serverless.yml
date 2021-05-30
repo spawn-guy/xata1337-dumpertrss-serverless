@@ -38,7 +38,7 @@ functions:
     handler: src.main.main
     description: Get latest entries. page0 # optional, Description to publish to AWS
     #    role: arn:aws:iam::042234032362:role/iam-role-DataLake
-    memorySize: 16 # optional, in MB, default is 1024
+    memorySize: 128 # optional, in MB, default is 1024
     timeout: 30 # optional, in seconds, default is 6
     events:
       - http:

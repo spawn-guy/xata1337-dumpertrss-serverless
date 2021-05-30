@@ -89,7 +89,10 @@ def main(event, context):
     for item in d_data["items"]:
         fe = fg.add_entry()
 
-        fe.title(item["title"])
+        if item["nsfw"]:
+            fe.title(f"NSFW: {item['title']}")
+        else:
+            fe.title(item["title"])
 
         if item["media_type"] == "VIDEO":
             description = compose_description_video(item)

@@ -1,0 +1,77 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: xata1337-dumpertrss
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: '2'
+useDotenv: true
+variablesResolutionMode: 20210219
+configValidationMode: error
+
+provider:
+  name: aws
+  runtime: python3.8
+
+  region: eu-west-1
+
+  lambdaHashingVersion: 20201221
+  apiGateway:
+    shouldStartNameWithService: true
+
+  tags:
+    BU: dumpert
+
+functions:
+  latest:
+    handler: src.main.main
+    description: Get latest entries. page0 # optional, Description to publish to AWS
+#    role: arn:aws:iam::042234032362:role/iam-role-DataLake
+#    memorySize: 4096 # optional, in MB, default is 1024
+    timeout: 30 # optional, in seconds, default is 6
+    events:
+      - http:
+          path: latest
+          method: get
+    environment:
+      DUMPERT_HOST: ${env:DUMPERT_HOST}
+      FEED_TYPE: "latest/0"
+#      FEED_TYPE: "top5/day"
+
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    usePipenv: true
+    dockerizePip: non-linux
+#    layer: true
+    slim: true
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "!venv/**"
+    - "!.direnv/**"
+    - "!app/asgi_debug.py"
+    - "!.idea/**"
+    - "!.env*"
+    - "!Pipfile*"
+    - "!Dockerfile"
+    - "!docker-entrypoint.sh"
+    - "!yarn.lock"
+    - "!package.json"
+    - "!**/__pycache__/**"
+    - "!**/*.pyc"

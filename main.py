@@ -70,8 +70,8 @@ def main(event, context):
 
     # fg.id("http://lernfunk.de/media/654321")
     # fg.logo("http://ex.com/logo.jpg")
-    fg.title("dumpert.nl - Laatste 50 entries")
-    fg.subtitle("dumpert.nl RSS Feed")
+    fg.title("dumpert.nl - Laatste 50 embeded-entries")
+    fg.subtitle("dumpert.nl RSS Embed Feed")
     fg.link(href=f"{DUMPERT_HOST}/rss", rel="self")
     # fg.link(href="https://spawn-guy.name", rel="alternate")
     fg.language("nl")
